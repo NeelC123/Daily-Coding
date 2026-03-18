@@ -1,0 +1,104 @@
+GROUP ANAGRAM
+
+WAY 1
+===================
+
+class Solution {
+    public List<List<String>> groupAnagrams(String[] strs) {
+        HashMap<String, List<String>> map = new HashMap<>();
+        int[] freq = new int[26];
+        
+        for (String str : strs) {
+            Arrays.fill(freq, 0);
+            for (char c : str.toCharArray()) {
+                freq[c - 'a']++;
+            }
+            StringBuilder sb = new StringBuilder();
+            for (int num : freq) {
+                sb.append(num).append('#');
+            }
+            String key = sb.toString();
+            map.computeIfAbsent(key, k -> new ArrayList<>()).add(str);
+        }
+        
+        return new ArrayList<>(map.values());
+    }
+}
+
+
+WAY 2
+===================
+
+class Solution {
+    public List<List<String>> groupAnagrams(String[] strs) {
+        HashMap<String, List<String>> map = new HashMap<>();
+        int[] freq = new int[26];
+        
+        for (String str : strs) {
+            Arrays.fill(freq, 0);
+            for (char c : str.toCharArray()) {
+                freq[c - 'a']++;
+            }
+            StringBuilder sb = new StringBuilder();
+            for (int num : freq) {
+                sb.append(num).append('#');
+            }
+            String key = sb.toString();
+            
+            // Check if key exists
+            if (!map.containsKey(key)) {
+                map.put(key, new ArrayList<>()); // create new list if key not present
+            }
+            map.get(key).add(str); // add string to the list
+        }
+        
+        return new ArrayList<>(map.values());
+    }
+}
+
+
+WAY 3
+===================
+
+import java.util.*;
+
+class Solution {
+    public List<List<String>> groupAnagrams(String[] strs) {
+        // Declare map once
+        HashMap<String, List<String>> map = new HashMap<>();
+        
+        // Reusable frequency array
+        int[] freq = new int[26];
+        
+        // Reusable StringBuilder
+        StringBuilder sb = new StringBuilder();
+        
+        for (String str : strs) {
+            // Reset frequency array
+            Arrays.fill(freq, 0);
+            
+            // Count frequency of each character
+            for (char c : str.toCharArray()) {
+                freq[c - 'a']++;
+            }
+            
+            // Reset StringBuilder
+            sb.setLength(0);
+            
+            // Build key from frequency array
+            for (int num : freq) {
+                sb.append(num).append('#');
+            }
+            String key = sb.toString();
+            
+            // Manually check key and add string to list
+            if (!map.containsKey(key)) {
+                map.put(key, new ArrayList<>());
+            }
+            map.get(key).add(str);
+        }
+        
+        // Return all grouped anagrams
+        return new ArrayList<>(map.values());
+    }
+}
