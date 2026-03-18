@@ -1,1 +1,18 @@
+TWO POINTER
 
+class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        HashMap<Integer,Integer> map = new HashMap<>();
+
+        for(int start = 0 ; start < nums.length ; start++){
+            int compliment = target - nums[start];
+            if(map.containsKey(compliment)){
+                return new int[]{map.get(compliment),start};
+            }
+            map.put(nums[start],start);
+        }
+        return new int[]{-1,-1};
+    }
+}
+
+//map.get(complement)KEY → gives the index[VALUE] of that number (stored earlier). 
